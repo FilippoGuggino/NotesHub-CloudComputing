@@ -1,0 +1,101 @@
+import connexion
+import six
+
+from swagger_server.models.note import Note  # noqa: E501
+from swagger_server import util
+
+
+def add_note(body):  # noqa: E501
+    """Add a new note
+
+     # noqa: E501
+
+    :param body: The note that will be added
+    :type body: dict | bytes
+
+    :rtype: None
+    """
+    if connexion.request.is_json:
+        body = Note.from_dict(connexion.request.get_json())  # noqa: E501
+    return 'do some magic!'
+
+
+def delete_note(noteTitle):  # noqa: E501
+    """Deletes a note
+
+     # noqa: E501
+
+    :param noteTitle: Note id to delete
+    :type noteTitle: str
+
+    :rtype: None
+    """
+    return 'do some magic!'
+
+
+def find_notes_by_author(author):  # noqa: E501
+    """Finds Notes by author
+
+     # noqa: E501
+
+    :param author: 
+    :type author: str
+
+    :rtype: List[Note]
+    """
+    return 'do some magic!'
+
+
+def find_notes_by_date(_date):  # noqa: E501
+    """Finds Notes by date
+
+     # noqa: E501
+
+    :param _date: 
+    :type _date: str
+
+    :rtype: List[Note]
+    """
+    _date = util.deserialize_date(_date)
+    return 'do some magic!'
+
+
+def find_notes_by_subject(subject):  # noqa: E501
+    """Finds Notes by subject
+
+     # noqa: E501
+
+    :param subject: 
+    :type subject: str
+
+    :rtype: List[Note]
+    """
+    return 'do some magic!'
+
+
+def get_note_by_title(noteTitle):  # noqa: E501
+    """Find note by title
+
+    Returns a single note # noqa: E501
+
+    :param noteTitle: title of the note to return
+    :type noteTitle: str
+
+    :rtype: Note
+    """
+    return 'do some magic!'
+
+
+def update_note(body):  # noqa: E501
+    """Update an existing note
+
+     # noqa: E501
+
+    :param body: Note object that needs to be updated
+    :type body: dict | bytes
+
+    :rtype: None
+    """
+    if connexion.request.is_json:
+        body = Note.from_dict(connexion.request.get_json())  # noqa: E501
+    return 'do some magic!'

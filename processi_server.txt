@@ -1,0 +1,20 @@
+guggio 172.16.2.40 -> 	
+			backend
+			zookeeper
+			frontend
+			
+emilio 172.16.1.191 ->	
+			frontend
+			backend
+			zookeeper
+			
+baccio 172.16.1.157 -> 	
+			rabbitMQ primary
+
+luca 172.16.1.136   -> 	
+			haproxy
+			rabbitMQ backup
+
+controller 172.16.3.34 -> 	
+			zookeeper
+			mongodb

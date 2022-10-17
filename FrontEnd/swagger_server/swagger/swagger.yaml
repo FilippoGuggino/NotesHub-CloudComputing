@@ -1,0 +1,218 @@
+---
+swagger: "2.0"
+info:
+  description: "My REST API"
+  version: "1.0.0"
+  title: "My REST API"
+host: "172.16.1.191:8080"
+basePath: "/v1"
+tags:
+- name: "Notes"
+  description: "Notes collection"
+schemes:
+- "http"
+paths:
+  /Note:
+    post:
+      tags:
+      - "Notes"
+      summary: "Add a new note"
+      description: ""
+      operationId: "add_note"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "The note that will be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Note"
+      responses:
+        "405":
+          description: "Invalid input"
+      x-swagger-router-controller: "swagger_server.controllers.notes_controller"
+    put:
+      tags:
+      - "Notes"
+      summary: "Update an existing note"
+      description: ""
+      operationId: "update_note"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Note object that needs to be updated"
+        required: true
+        schema:
+          $ref: "#/definitions/Note"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Note not found"
+        "405":
+          description: "Validation exception"
+      x-swagger-router-controller: "swagger_server.controllers.notes_controller"
+  /Note/findByAuthor:
+    get:
+      tags:
+      - "Notes"
+      summary: "Finds Notes by author"
+      operationId: "find_notes_by_author"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "author"
+        in: "query"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Note"
+        "400":
+          description: "Invalid status value"
+      x-swagger-router-controller: "swagger_server.controllers.notes_controller"
+  /Note/findByDate:
+    get:
+      tags:
+      - "Notes"
+      summary: "Finds Notes by date"
+      operationId: "find_notes_by_date"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "date"
+        in: "query"
+        required: true
+        type: "string"
+        format: "date"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Note"
+        "400":
+          description: "Invalid status value"
+      x-swagger-router-controller: "swagger_server.controllers.notes_controller"
+  /Note/findBySubject:
+    get:
+      tags:
+      - "Notes"
+      summary: "Finds Notes by subject"
+      operationId: "find_notes_by_subject"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "subject"
+        in: "query"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Note"
+        "400":
+          description: "Invalid status value"
+      x-swagger-router-controller: "swagger_server.controllers.notes_controller"
+  /Note/{noteTitle}:
+    get:
+      tags:
+      - "Notes"
+      summary: "Find note by title"
+      description: "Returns a single note"
+      operationId: "get_note_by_title"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "noteTitle"
+        in: "path"
+        description: "title of the note to return"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Note"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Note not found"
+      x-swagger-router-controller: "swagger_server.controllers.notes_controller"
+    delete:
+      tags:
+      - "Notes"
+      summary: "Deletes a note"
+      description: ""
+      operationId: "delete_note"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "noteTitle"
+        in: "path"
+        description: "Note id to delete"
+        required: true
+        type: "string"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Note not found"
+      x-swagger-router-controller: "swagger_server.controllers.notes_controller"
+definitions:
+  Note:
+    type: "object"
+    required:
+    - "author"
+    - "date"
+    - "subject"
+    - "text"
+    - "title"
+    properties:
+      title:
+        type: "string"
+        example: "myNote"
+      author:
+        type: "string"
+        example: "Jim"
+      date:
+        type: "string"
+        format: "date"
+      text:
+        type: "string"
+        example: "lorem ipsum..."
+      subject:
+        type: "string"
+        example: "Geography.."
+    xml:
+      name: "Note"
+    example:
+      date: "2000-01-23"
+      author: "Jim"
+      subject: "Geography.."
+      text: "lorem ipsum..."
+      title: "myNote"
